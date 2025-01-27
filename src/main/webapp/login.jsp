@@ -10,7 +10,7 @@
 <link href="css/estilos.css" rel="stylesheet" type="text/css">
 <title>Login</title>
 <style>
-    body {
+    body       {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -32,12 +32,12 @@
         margin-bottom: 1rem;
     }
     .btn-primary {
-        background-color: #004d40; /* Botón verde oscuro */
+        background-color: #004d40; /* Bot n verde oscuro */
         border-color: #004d40;
         transition: background-color 0.3s ease, transform 0.2s ease;
     }
     .btn-primary:hover {
-        background-color: #00332c; /* Más oscuro al pasar el cursor */
+        background-color: #00332c; /* M s oscuro al pasar el cursor */
         transform: scale(1.05);
     }
     .alert {
@@ -88,7 +88,7 @@
         <form action="LoginServlet?opc=login" method="post">            
             <div class="text-center">
                 <img src="images/logo.png" height="80" width="80" alt="Icono de usuario">
-                <h2 class="h4">Iniciar Sesión</h2>
+                <h2 class="h4">Iniciar Sesi n</h2>
             </div>
             <div class="mb-3">
                 <label for="txtCelular" class="form-label">Celular</label>
