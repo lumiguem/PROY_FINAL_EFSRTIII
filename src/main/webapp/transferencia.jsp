@@ -1,12 +1,12 @@
-<%@ page import="entidades.Cuenta" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="ISO-8859-1">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información de la Cuenta</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
         body {
@@ -57,36 +57,32 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg shadow-sm">
-        <div class="container-fluid">
-            <a class="navbar-brand text-white" href="#">Gestión de Cuentas</a>
-        </div>
-    </nav>
 
-    <div class="container">
-        <div class="card">
-            <div class="text-center mb-4">
-                <h1>Bienvenido, <span class="text-primary">${name}</span>!</h1>
-            </div>
-            <h5 class="text-center">Información de la Cuenta</h5>
-            <hr>
-            <form action="CuentaServlet?tipo=info&id=${idUsuario}" method="post">
-                <input type="hidden" name="idCuenta" value="">
-                <div class="mb-4">
-                    <input id="txtSaldo" class="form-control" type="text" name="txtSaldo" 
-                           value="******" readonly>
-                </div>
-                <button type="button" id="toggleSaldoBtn" class="btn btn-primary w-100">Mostrar Saldo</button>
-                <br><br>
-                <a type="button" id="" class="btn btn-primary w-100" href="transferencia.jsp">Iniciar transferencia</a>
-                <br><br>
-                <button type="button" id="" class="btn btn-primary w-100">Mostrar Estado de Cuenta</button>
-            </form>
-        </div>
-    </div>
+	<div>
+	
+	<form action="TransaccionServlet" method="POST">
+		<label>ID Transferencia</label><br>
+		<input class="form-control" type="text" name="idTransaccion" value="1" >
+		<label>Emisor</label><br>
+		<input class="form-control" type="text" name="idOrigen" value="1111" >
+		<br><br>
+		<label>CÃ³digo del destinatario</label><br>
+		<input class="form-control" name= "codigoDestinatario" type="number">
+		<br><br>
+		<label>Ingrese el monto</label><br>
+		<input class="form-control" type="number" name="monto" step="0.01">
+		<br><br>
+		<label>Valor actual en su cuenta</label><br>
+		<input class="form-control" type="number" value="1500" disabled>
+		<br><br>
+		<button type="submit" class="btn btn-info w-100">Transferir</button>
+		<a href="main.jsp" class="btn btn-info w-100">Volver al menÃº anterior</a>
+	</form>
+	</div>
+</body>
 
-    <footer>
-        <small>&copy; 2025 Gestión de Cuentas. Todos los derechos reservados.</small>
+<footer>
+        <small>&copy; 2025 GestiÃ³n de Cuentas. Todos los derechos reservados.</small>
     </footer>
 
     <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -100,7 +96,7 @@
             const saldoInput = document.getElementById('txtSaldo');
             const toggleButton = document.getElementById('toggleSaldoBtn');
 
-            // Saldo real (simulado, reemplazar "${saldo}" con el valor dinámico en tu entorno)
+            // Saldo real (simulado, reemplazar "${saldo}" con el valor dinÃ¡mico en tu entorno)
             const saldoReal = "S/. ${saldo}";
             const saldoOculto = "******";
 
@@ -118,5 +114,4 @@
             });
         });
     </script>
-</body>
 </html>
