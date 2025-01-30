@@ -21,16 +21,27 @@ public class MySqlTransaccionDAO implements TransaccionDAO {
 			String sql = "call usp_registrarTransaccion(?, ?, ?, ?)";
 			psm = cn.prepareCall(sql);
 			
+			psm.setInt(1,transaccion.getIdOrigen());
+			psm.setInt(2, transaccion.getIdDestino());
+			psm.setDouble(3,transaccion.getMonto());
+			psm.setDate(4,new java.sql.Date(transaccion.getFecTrans().getTime()));
+			
+			int rowsAffected = psm.executeUpdate();
+			if (rowsAffected > 0) {
+	            value = 1;
+	        }
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				
+				if(psm != null) psm.close();
+				if(cn != null) cn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return 0;
+		return value;
 	}
 
 	@Override

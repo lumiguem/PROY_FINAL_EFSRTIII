@@ -42,3 +42,11 @@ end//
 delimiter ;
 
 call usp_validaLogin(978376725, 123456)
+
+delimiter //
+create procedure usp_registrarTransaccion(in ido int,in idd int,in monto double,in fechat Date)
+begin
+	insert into transacciones (idOrigen,idDestino, monto, fecTrans) values
+    (ido, idd, monto, fechat);
+end//
+delimiter ;
