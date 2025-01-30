@@ -88,6 +88,7 @@
         <form action="LoginServlet?opc=login" method="post">            
             <div class="text-center">
                 <img src="images/logo.png" height="80" width="80" alt="Icono de usuario">
+
                 
                 <h2 class="h4">Iniciar Sesión</h2>
             </div>
