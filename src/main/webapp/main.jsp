@@ -1,11 +1,14 @@
 <%@ page import="entidades.Cuenta" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información de la Cuenta</title>
+
+    <title>InformaciÃ³n de la Cuenta</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
@@ -59,7 +62,7 @@
 <body>
     <nav class="navbar navbar-expand-lg shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand text-white" href="#">Gestión de Cuentas</a>
+            <a class="navbar-brand text-white" href="#">GestiÃ³n de Cuentas</a>
         </div>
     </nav>
 
@@ -68,7 +71,7 @@
             <div class="text-center mb-4">
                 <h1>Bienvenido, <span class="text-primary">${name}</span>!</h1>
             </div>
-            <h5 class="text-center">Información de la Cuenta</h5>
+            <h5 class="text-center">InformaciÃ³n de la Cuenta</h5>
             <hr>
             <form action="CuentaServlet?tipo=info&id=${idUsuario}" method="post">
                 <input type="hidden" name="idCuenta" value="">
@@ -86,7 +89,7 @@
     </div>
 
     <footer>
-        <small>&copy; 2025 Gestión de Cuentas. Todos los derechos reservados.</small>
+        <small>&copy; 2025 GestiÃ³n de Cuentas. Todos los derechos reservados.</small>
     </footer>
 
     <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -100,7 +103,7 @@
             const saldoInput = document.getElementById('txtSaldo');
             const toggleButton = document.getElementById('toggleSaldoBtn');
 
-            // Saldo real (simulado, reemplazar "${saldo}" con el valor dinámico en tu entorno)
+            // Saldo real (simulado, reemplazar "${saldo}" con el valor dinÃ¡mico en tu entorno)
             const saldoReal = "S/. ${saldo}";
             const saldoOculto = "******";
 

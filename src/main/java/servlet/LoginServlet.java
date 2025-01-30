@@ -32,6 +32,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String opcion = request.getParameter("opc");
 			if(opcion.equals("login")) {
 				String celular = request.getParameter("txtCelular");

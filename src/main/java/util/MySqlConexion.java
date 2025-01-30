@@ -12,7 +12,8 @@ public class MySqlConexion {
 			Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
 			String url = "jdbc:mysql://localhost:3306/yata_app?useSSL=false&useTimezone=true&serverTimezone=UTC";
 			String user = "root";
-			String pwd = "motorola";
+			String pwd = "gonzalo123";
+			
 			con = DriverManager.getConnection(url, user, pwd);
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error driver no instalado" + e.getMessage());
