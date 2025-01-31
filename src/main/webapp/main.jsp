@@ -73,7 +73,7 @@
             </div>
             <h5 class="text-center">Información de la Cuenta</h5>
             <hr>
-            <form action="CuentaServlet?tipo=info&id=${idUsuario}" method="post">
+            <form action="CuentaServlet?tipo=info&id=${idusuario}" method="post">
                 <input type="hidden" name="idCuenta" value="">
                 <div class="mb-4">
                     <input id="txtSaldo" class="form-control" type="text" name="txtSaldo" 

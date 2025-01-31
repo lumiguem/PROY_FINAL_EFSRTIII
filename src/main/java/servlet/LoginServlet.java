@@ -47,6 +47,7 @@ public class LoginServlet extends HttpServlet {
 				if(usu != null) {
 					SessionProject sessionProject = new SessionProject();
 					sessionProject.saveSessionTimeOut(request, 300);
+					sessionProject.saveSessionInt(request,"idusur",usu.getIdUsuario());
 					sessionProject.saveSessionInt(request, Constantes.IDUSUARIO, usu.getIdUsuario());
 					sessionProject.saveSessionString(request, Constantes.NAME, usu.getNomUsuario());
 					sessionProject.saveSessionString(request, Constantes.LASTNAME, usu.getApeUsuario());

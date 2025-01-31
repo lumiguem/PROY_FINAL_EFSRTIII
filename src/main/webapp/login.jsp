@@ -97,7 +97,7 @@
                 <input type="text" id="txtCelular" name="txtCelular" class="form-control" placeholder="Ingrese nro. Celular" required>
             </div>
             <div class="mb-3">
-                <label for="txtClave" class="form-label">Digita tu clave	</label>
+                <label for="txtClave" class="form-label">Digita tu clave</label>
                 <input type="password" id="txtClave" name="txtClave" class="form-control" readonly required>
                 <div class="keypad">
                     <% for (int i = 1; i <= 9; i++) { %>

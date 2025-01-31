@@ -63,19 +63,22 @@
 	<form action="TransaccionServlet" method="POST">
 		<label>ID Transferencia</label><br>
 		<input class="form-control" type="text" name="idTransaccion" value="1" >
+		<br>
 		<label>Emisor</label><br>
-		<input class="form-control" type="text" name="idOrigen" value="1111" >
-		<br><br>
+		
+		<input class="form-control" type="number" name="idOrigen" value="${idusur }" >
+		<br>
 		<label>Código del destinatario</label><br>
 		<input class="form-control" name= "codigoDestinatario" type="number">
-		<br><br>
+		<br>
 		<label>Ingrese el monto</label><br>
 		<input class="form-control" type="number" name="monto" step="0.01">
-		<br><br>
+		<br>
 		<label>Valor actual en su cuenta</label><br>
-		<input class="form-control" type="number" value="1500" disabled>
-		<br><br>
+		<input class="form-control" type="number" value="${saldo}" disabled>
+		<br>
 		<button type="submit" class="btn btn-info w-100">Transferir</button>
+		<br><br>
 		<a href="main.jsp" class="btn btn-info w-100">Volver al menú anterior</a>
 	</form>
 	</div>
