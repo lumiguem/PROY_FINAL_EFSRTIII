@@ -33,13 +33,14 @@ public class TransaccionServlet extends HttpServlet {
         TransaccionDAO transaccionDAO = new MySqlTransaccionDAO();
         int resultado = transaccionDAO.registrarTransaccion(transaccion);
 
-        
-        
+        sessionProject.removeAttribute("codigoDestinatario");
+        sessionProject.removeAttribute("usuarioDestinatario");
+       
         
         // Verificando o resultado da transação e redirecionando conforme necessário
         if (resultado == 1) {
             // Transação registrada com sucesso
-            response.sendRedirect("transferencia.jsp");
+            response.sendRedirect("transConfirmada.jsp");
         } else {
             // Falha ao registrar a transação
             response.sendRedirect("error.jsp");
