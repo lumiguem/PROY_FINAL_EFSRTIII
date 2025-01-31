@@ -68,9 +68,10 @@
 		
 		<input class="form-control" type="number" name="idOrigen" value="${idusur }" >
 		<br>
-		<label>Código del destinatario</label><br>
-		<input class="form-control" name= "codigoDestinatario" type="number">
+		<label>Nombre del destinatario</label><br>
+		<input class="form-control" name= "nombreDestinatario" type="text" value="${usuarioDestinatario}" >
 		<br>
+		<a href="buscarUsuario.jsp" class="btn btn-info">Buscar</a><br><br>
 		<label>Ingrese el monto</label><br>
 		<input class="form-control" type="number" name="monto" step="0.01">
 		<br>

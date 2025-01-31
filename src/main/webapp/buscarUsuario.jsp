@@ -11,14 +11,14 @@
 		<form action="UsuarioServlet" method="post">
 			<label>Buscar destinatario:</label>
 			<br>
-			<input placeholder="Inserte número de celular">
+			<input placeholder="Inserte número de celular" name="celular">
 			<button>Buscar</button>
 			<br><br>
 			<label>Nombre del destinatario:</label>
 			<br>
-			<input placeholder="" disabled>
+			<input placeholder="${usuarioDestinatario}" disabled>
 			<br>
-			<button type="submit" class="btn btn-primary w-100">Confirmar destinatario</button>
+			<a href="transferencia.jsp" type="submit" class="btn btn-primary w-100">Confirmar destinatario</a>
 			
 		</form>
 	</div>
