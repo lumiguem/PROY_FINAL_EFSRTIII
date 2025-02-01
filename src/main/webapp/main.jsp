@@ -83,7 +83,7 @@
                 <br><br>
                 <a type="button" id="" class="btn btn-primary w-100" href="transferencia.jsp">Iniciar transferencia</a>
                 <br><br>
-                <button type="button" id="" class="btn btn-primary w-100">Mostrar Estado de Cuenta</button>
+                <a type="button" id="" class="btn btn-primary w-100" href="ReporteTransaccionServlet?action=list">Mostrar Estado de Cuenta</a>
             </form>
         </div>
     </div>
