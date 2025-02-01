@@ -29,7 +29,7 @@ CREATE TABLE `yata_app`.`transacciones` (
 INSERT INTO `yata_app`.`usuarios` (`idUsuario`, `nomUsuario`, `apeUsuario`, `celUsuario`, `pasUsuario`, `saldo`) VALUES ('1111', 'Miguel', 'Moreno', '978376725', '123456', 1500);
 INSERT INTO `yata_app`.`usuarios` (`nomUsuario`, `apeUsuario`, `celUsuario`, `pasUsuario`, `saldo`) VALUES ('Alejandro ', 'Romero', '914613879', '654321', 500);
 
---Procedimientos 
+--Procedimientos
 
 
 delimiter //
