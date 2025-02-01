@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import entidades.Transaccion;
 import interfaces.TransaccionDAO;
 import modelo.MySqlTransaccionDAO;
@@ -19,7 +21,9 @@ public class TransaccionServlet extends HttpServlet {
     	
     	int idTransaccion=Integer.parseInt(request.getParameter("idTransaccion"));
         int idOrigen = Integer.parseInt(request.getParameter("idOrigen"));
-        int idDestino = Integer.parseInt(request.getParameter("codigoDestinatario"));
+       // int idDestino = Integer.parseInt(request.getParameter("nombreDestinatario"));
+        HttpSession sessionProject = request.getSession();
+        int idDestino = (int) sessionProject.getAttribute("codigoDestinatario");
         double monto = Double.parseDouble(request.getParameter("monto"));
         Date fecTrans = new Date(); 
 
@@ -29,10 +33,14 @@ public class TransaccionServlet extends HttpServlet {
         TransaccionDAO transaccionDAO = new MySqlTransaccionDAO();
         int resultado = transaccionDAO.registrarTransaccion(transaccion);
 
+        sessionProject.removeAttribute("codigoDestinatario");
+        sessionProject.removeAttribute("usuarioDestinatario");
+       
+        
         // Verificando o resultado da transação e redirecionando conforme necessário
         if (resultado == 1) {
             // Transação registrada com sucesso
-            response.sendRedirect("transferencia.jsp");
+            response.sendRedirect("transConfirmada.jsp");
         } else {
             // Falha ao registrar a transação
             response.sendRedirect("error.jsp");
