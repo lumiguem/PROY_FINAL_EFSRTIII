@@ -1,6 +1,6 @@
 <%@ page import="entidades.Cuenta" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -48,6 +48,16 @@
             background-color: #00332c;
             transform: scale(1.05);
         }
+        .btn-logout {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff4c4c; /* Botón rojo */
+            border-color: #ff4c4c;
+        }
+        .btn-logout:hover {
+            background-color: #cc0000;
+        }
         footer {
             background-color: #f8f9fa;
             color: #004d40;
@@ -63,6 +73,7 @@
     <nav class="navbar navbar-expand-lg shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand text-white" href="#">Gestión de Cuentas</a>
+            <a href="cerrarSesionServlet" class="btn btn-logout">Cerrar Sesión</a>
         </div>
     </nav>
 
@@ -81,9 +92,9 @@
                 </div>
                 <button type="button" id="toggleSaldoBtn" class="btn btn-primary w-100">Mostrar Saldo</button>
                 <br><br>
-                <a type="button" id="" class="btn btn-primary w-100" href="transferencia.jsp">Iniciar transferencia</a>
+                <a class="btn btn-primary w-100" href="transferencia.jsp">Iniciar transferencia</a>
                 <br><br>
-                <button type="button" id="" class="btn btn-primary w-100">Mostrar Estado de Cuenta</button>
+                <button type="button" class="btn btn-primary w-100">Mostrar Estado de Cuenta</button>
             </form>
         </div>
     </div>

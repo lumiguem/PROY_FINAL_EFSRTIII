@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,38 +14,67 @@ import javax.servlet.http.HttpSession;
 import entidades.Transaccion;
 import interfaces.TransaccionDAO;
 import modelo.MySqlTransaccionDAO;
+import util.Constantes;
+import util.MySqlConexion;
+import util.SessionProject;
 
 @WebServlet("/TransaccionServlet")
 public class TransaccionServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-    	int idTransaccion=Integer.parseInt(request.getParameter("idTransaccion"));
+        int idTransaccion = Integer.parseInt(request.getParameter("idTransaccion"));
         int idOrigen = Integer.parseInt(request.getParameter("idOrigen"));
-       // int idDestino = Integer.parseInt(request.getParameter("nombreDestinatario"));
         HttpSession sessionProject = request.getSession();
         int idDestino = (int) sessionProject.getAttribute("codigoDestinatario");
-        double monto = Double.parseDouble(request.getParameter("monto"));
-        Date fecTrans = new Date(); 
+        double montoTran = Double.parseDouble(request.getParameter("monto"));
+        Date fecTrans = new Date();
 
-        Transaccion transaccion = new Transaccion(idTransaccion,idOrigen,idDestino,monto,fecTrans);
-
-        // Registrando a transação usando a função do modelo
+        Transaccion transaccion = new Transaccion(idTransaccion, idOrigen, idDestino, montoTran, fecTrans);
         TransaccionDAO transaccionDAO = new MySqlTransaccionDAO();
-        int resultado = transaccionDAO.registrarTransaccion(transaccion);
-
-        sessionProject.removeAttribute("codigoDestinatario");
-        sessionProject.removeAttribute("usuarioDestinatario");
        
-        
-        // Verificando o resultado da transação e redirecionando conforme necessário
-        if (resultado == 1) {
-            // Transação registrada com sucesso
+
+        Connection cn = null;
+        try {
+            cn = MySqlConexion.getConexion();
+            cn.setAutoCommit(false); // Iniciar la transacción
+
+             transaccionDAO.registrarTransaccion(transaccion); //int resultado =
+            transaccionDAO.modificarUsuarioTran(idOrigen, (-1) * montoTran);
+            transaccionDAO.modificarUsuarioTran(idDestino, montoTran);
+
+            double montoAntiguo = (double) sessionProject.getAttribute("saldo");
+            double montoActual = montoAntiguo - montoTran;
+            sessionProject.setAttribute("saldo", montoActual);
+            
+            SessionProject sessionProject1 = new SessionProject();
+            sessionProject1.removeSessionAttribute(request, Constantes.SALDO);
+            sessionProject1.saveSessionDouble(request, Constantes.SALDO, montoActual);
+
+            cn.commit(); // Confirmar la transacción
             response.sendRedirect("transConfirmada.jsp");
-        } else {
-            // Falha ao registrar a transação
+
+        } catch (Exception e) {
+            if (cn != null) {
+                try {
+                    cn.rollback(); // Revertir la transacción en caso de error
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
             response.sendRedirect("error.jsp");
+        } finally {
+            try {
+                if (cn != null) cn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            sessionProject.removeAttribute("codigoDestinatario");
+            sessionProject.removeAttribute("usuarioDestinatario");
+            
+            
         }
+        
     }
+    
 }

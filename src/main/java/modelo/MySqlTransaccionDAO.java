@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.util.List;
 
 import entidades.Transaccion;
+import entidades.Usuario;
 import interfaces.TransaccionDAO;
 import util.MySqlConexion;
 
@@ -68,6 +69,36 @@ public class MySqlTransaccionDAO implements TransaccionDAO {
 		return 0;
 	}
 	
-	
+	@Override
+	public void modificarUsuarioTran(int id,double montoTran) {
+		// TODO Auto-generated method stub
+		Usuario user = null;
+	    Connection cn = null;
+	    PreparedStatement psm = null;
+
+	    try {
+	        cn = MySqlConexion.getConexion();
+	        String sql = "call usp_modificarUsuarioTran(?,?)";
+	        psm = cn.prepareCall(sql);
+	        psm.setInt(1, id);
+	        psm.setDouble(2, montoTran);
+	        int rowsAffected = psm.executeUpdate();
+
+	        if (rowsAffected > 0) {
+	            user = new Usuario();
+	            user.setIdUsuario(id);
+	            user.setSaldo(montoTran);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (psm != null) psm.close();
+	            if (cn != null) cn.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
 
 }
