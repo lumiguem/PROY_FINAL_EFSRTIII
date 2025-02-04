@@ -39,19 +39,30 @@ public class TransaccionServlet extends HttpServlet {
             cn = MySqlConexion.getConexion();
             cn.setAutoCommit(false); // Iniciar la transacción
 
-             transaccionDAO.registrarTransaccion(transaccion); //int resultado =
+            transaccionDAO.registrarTransaccion(transaccion); //int resultado =
             transaccionDAO.modificarUsuarioTran(idOrigen, (-1) * montoTran);
             transaccionDAO.modificarUsuarioTran(idDestino, montoTran);
 
             double montoAntiguo = (double) sessionProject.getAttribute("saldo");
             double montoActual = montoAntiguo - montoTran;
             sessionProject.setAttribute("saldo", montoActual);
+            sessionProject.setAttribute("montoTransferido", montoTran);
             
             SessionProject sessionProject1 = new SessionProject();
             sessionProject1.removeSessionAttribute(request, Constantes.SALDO);
             sessionProject1.saveSessionDouble(request, Constantes.SALDO, montoActual);
-
+            
             cn.commit(); // Confirmar la transacción
+            
+            String usuarioDestinatario = (String) sessionProject.getAttribute("usuarioDestinatario");
+
+            if (usuarioDestinatario == null) {
+             usuarioDestinatario = transaccionDAO.obtenerNombreUsuario(idDestino); 
+             sessionProject.setAttribute("usuarioDestinatario", usuarioDestinatario);
+            }
+            
+            
+            sessionProject.setAttribute("fechaTransaccion", fecTrans);                     
             response.sendRedirect("transConfirmada.jsp");
 
         } catch (Exception e) {
@@ -69,8 +80,7 @@ public class TransaccionServlet extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            sessionProject.removeAttribute("codigoDestinatario");
-            sessionProject.removeAttribute("usuarioDestinatario");
+           
             
             
         }

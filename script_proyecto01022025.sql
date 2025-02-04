@@ -1,3 +1,7 @@
+CREATE SCHEMA yata_app;
+
+use yata_app;
+
 CREATE TABLE `yata_app`.`usuarios` (
   `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `nomUsuario` VARCHAR(45) NOT NULL,

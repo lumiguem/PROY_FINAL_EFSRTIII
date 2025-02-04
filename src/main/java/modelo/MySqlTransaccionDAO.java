@@ -2,6 +2,10 @@ package modelo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.List;
 
 import entidades.Transaccion;
@@ -78,7 +82,7 @@ public class MySqlTransaccionDAO implements TransaccionDAO {
 
 	    try {
 	        cn = MySqlConexion.getConexion();
-	        String sql = "call usp_modificarUsuarioTran(?,?)";
+	        String sql = "	)";
 	        psm = cn.prepareCall(sql);
 	        psm.setInt(1, id);
 	        psm.setDouble(2, montoTran);
@@ -99,6 +103,27 @@ public class MySqlTransaccionDAO implements TransaccionDAO {
 	            e.printStackTrace();
 	        }
 	    }
+	}
+
+	@Override
+	public String obtenerNombreUsuario(int idDestino) {
+	    String nombre = null;
+	    String sql = "SELECT nombre FROM usuarios WHERE idDestino = ?";
+
+	    try (Connection cn = MySqlConexion.getConexion();
+	         PreparedStatement ps = cn.prepareStatement(sql)) {
+	        ps.setInt(1, idDestino);
+	        ResultSet rs = ps.executeQuery();
+
+	        if (rs.next()) {
+	            nombre = rs.getString("nombre");
+	        } else {
+	            System.out.println("No se encontró el usuario con ID: " + idDestino);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return nombre;
 	}
 
 }

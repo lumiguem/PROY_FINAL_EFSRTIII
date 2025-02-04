@@ -18,4 +18,6 @@ public interface TransaccionDAO {
 
 	void modificarUsuarioTran(int id, double montoTran);
 
+	public String obtenerNombreUsuario(int idDestino);
+
 }
