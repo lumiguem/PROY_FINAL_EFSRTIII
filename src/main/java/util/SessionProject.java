@@ -28,5 +28,11 @@ public class SessionProject {
 		request.getSession().invalidate();
 	}
 
+	public void removeSessionAttribute(HttpServletRequest request, String saldo) {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+        session.removeAttribute(saldo);
+	}
+
 
 }

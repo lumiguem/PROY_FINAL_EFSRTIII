@@ -98,4 +98,50 @@ public class MySqlUsuarioDAO implements UsuarioDAO {
 		return null;
 	}
 	
+	@Override
+	public void modificarUsuario(int id, String nombre, String apellido, String celular, String password, double saldo) {
+	    Usuario user = null;
+	    Connection cn = null;
+	    PreparedStatement psm = null;
+
+	    try {
+	        cn = MySqlConexion.getConexion();
+	        String sql = "call usp_modificarUsuario(?,?,?,?,?,?)";
+	        psm = cn.prepareCall(sql);
+	        psm.setInt(1, id);
+	        psm.setString(2, nombre);
+	        psm.setString(3, apellido);
+	        psm.setString(4, celular);
+	        psm.setString(5, password);
+	        psm.setDouble(6, saldo);
+	        int rowsAffected = psm.executeUpdate();
+
+	        if (rowsAffected > 0) {
+	            user = new Usuario();
+	            user.setIdUsuario(id);
+	            user.setNomUsuario(nombre);
+	            user.setApeUsuario(apellido);
+	            user.setCelUsuario(celular);
+	            user.setPasUsuario(password);
+	            user.setSaldo(saldo);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (psm != null) psm.close();
+	            if (cn != null) cn.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	}
+
+
+
+	
+	
 }
+
+	
