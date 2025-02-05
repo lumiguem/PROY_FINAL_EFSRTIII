@@ -1,4 +1,5 @@
 <%@page import="entidades.ReporteTransaccion"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -28,7 +29,7 @@
 							for (ReporteTransaccion item: listaReporteTransaccion) {
 								%>
 									<tr>
-										<td class="text-start"><%=item.getFecTrans() %></td>
+										<td class="text-start"><%=item.getFecTrans()%></td>
 										<td class="text-start"><%=item.getNombre() %></td>
 										<td class="text-start">S/. <%=item.getMonto() %></td>
 <%-- 										<td class="text-start"><%=item.getEstadoPaciente() == 2 ? "Activo" : "No activo"%></td> --%>

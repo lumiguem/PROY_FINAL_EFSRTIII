@@ -30,7 +30,7 @@ public class TransaccionServlet extends HttpServlet {
         double montoTran = Double.parseDouble(request.getParameter("monto"));
         Date fecTrans = new Date();
 
-        Transaccion transaccion = new Transaccion(idTransaccion, idOrigen, idDestino, montoTran, fecTrans);
+        Transaccion transaccion = new Transaccion(idTransaccion, idOrigen, idDestino, montoTran);
         TransaccionDAO transaccionDAO = new MySqlTransaccionDAO();
        
 
@@ -57,12 +57,12 @@ public class TransaccionServlet extends HttpServlet {
             String usuarioDestinatario = (String) sessionProject.getAttribute("usuarioDestinatario");
 
             if (usuarioDestinatario == null) {
-             usuarioDestinatario = transaccionDAO.obtenerNombreUsuario(idDestino); 
+             usuarioDestinatario = transaccionDAO.obtenerNombreUsuario(idDestino);
              sessionProject.setAttribute("usuarioDestinatario", usuarioDestinatario);
             }
             
             
-            sessionProject.setAttribute("fechaTransaccion", fecTrans);                     
+            sessionProject.setAttribute("fechaTransaccion", fecTrans);
             response.sendRedirect("transConfirmada.jsp");
 
         } catch (Exception e) {
@@ -80,9 +80,6 @@ public class TransaccionServlet extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-           
-            
-            
         }
         
     }

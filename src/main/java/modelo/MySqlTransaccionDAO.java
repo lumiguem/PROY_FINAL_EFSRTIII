@@ -23,14 +23,13 @@ public class MySqlTransaccionDAO implements TransaccionDAO {
 		
 		try {
 			cn=MySqlConexion.getConexion();
-			String sql = "call usp_registrarTransaccion(?, ?, ?, ?)";
+			String sql = "call usp_registrarTransaccion(?, ?, ?)";
 			psm = cn.prepareCall(sql);
 			
 			psm.setInt(1,transaccion.getIdOrigen());
 			psm.setInt(2, transaccion.getIdDestino());
 			psm.setDouble(3,transaccion.getMonto());
-			psm.setDate(4,new java.sql.Date(transaccion.getFecTrans().getTime()));
-			
+			//psm.setDate(4,new java.sql.DateTime(transaccion.getFecTrans().getTime()));
 			int rowsAffected = psm.executeUpdate();
 			if (rowsAffected > 0) {
 	            value = 1;
@@ -82,7 +81,7 @@ public class MySqlTransaccionDAO implements TransaccionDAO {
 
 	    try {
 	        cn = MySqlConexion.getConexion();
-	        String sql = "	)";
+	        String sql = "call usp_modificarUsuarioTran(?, ?)";
 	        psm = cn.prepareCall(sql);
 	        psm.setInt(1, id);
 	        psm.setDouble(2, montoTran);

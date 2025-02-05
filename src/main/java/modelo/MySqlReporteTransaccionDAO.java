@@ -32,7 +32,7 @@ public class MySqlReporteTransaccionDAO implements ReporteTransaccionDAO {
 				
 				ReporteTransaccion rp = new ReporteTransaccion();
 				
-				rp.setFecTrans(rs.getDate("fecTrans"));
+				rp.setFecTrans(rs.getTimestamp("fecTrans").toLocalDateTime());
 				rp.setNombre(rs.getString("nombreUsuario"));
 				rp.setMonto(rs.getDouble("saldo_movimiento"));
 				

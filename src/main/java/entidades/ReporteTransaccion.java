@@ -1,10 +1,10 @@
 package entidades;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class ReporteTransaccion {
 	
-	private Date fecTrans;
+	private LocalDateTime fecTrans;
 	private String nombre;
 	private double monto;
 	
@@ -12,19 +12,11 @@ public class ReporteTransaccion {
 		super();
 	}
 
-	public ReporteTransaccion(Date fecTrans, String nombre, double monto) {
+	public ReporteTransaccion(LocalDateTime fecTrans, String nombre, double monto) {
 		super();
 		this.fecTrans = fecTrans;
 		this.nombre = nombre;
 		this.monto = monto;
-	}
-
-	public Date getFecTrans() {
-		return fecTrans;
-	}
-
-	public void setFecTrans(Date fecTrans) {
-		this.fecTrans = fecTrans;
 	}
 
 	public String getNombre() {
@@ -42,6 +34,12 @@ public class ReporteTransaccion {
 	public void setMonto(double monto) {
 		this.monto = monto;
 	}
-	
-	
+
+	public LocalDateTime getFecTrans() {
+		return fecTrans;
+	}
+
+	public void setFecTrans(LocalDateTime fecTrans) {
+		this.fecTrans = fecTrans;
+	}
 }

@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.time.ZoneId;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,7 +75,10 @@ public class LoginServlet extends HttpServlet {
 											
 			}
 			
-			
+		Instant ahora = Instant.now();
+		
+		System.out.println(ahora);
+		
+		System.out.println(ZoneId.getAvailableZoneIds());
 	}
-
 }
