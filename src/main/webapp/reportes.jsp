@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@page import="entidades.ReporteTransaccion"%>
+<%@page import="java.util.List"%>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -96,42 +98,40 @@
 
      <div class="container">
         <div class="card">
-            <h2 class="mb-3">Bienvenido, <span class="text-primary">${name}</span>!</h2>
-            <h5 class="mb-3">Información de la Cuenta</h5>
-            <hr>
-            <input id="txtSaldo" class="form-control mb-3" type="text" value="******" readonly>
-            <button type="button" id="toggleSaldoBtn" class="btn btn-boton w-100">
-                <i class='bx bx-show'></i>Mostrar Saldo
-            </button>
-            <br><br>
-            <a class="btn btn-boton w-100" href="transferencia.jsp">
-                <i class='bx bx-transfer'></i>Transferencia
-            </a>
-            <br><br>
-            <a type="button" class="btn btn-boton w-100" href="ReporteTransaccionServlet?action=list">
-                <i class='bx bx-file'></i>Estado de Cuenta
-            </a>
-        </div>
+			<h1 class="m-3">Movimientos</h1>
+			<hr>
+			<table class="table table-sm align-middle display" id="tablaPacientes">
+				<thead class="table-info">
+					<tr>
+						<th scope="col" class="text-start">Fecha</th>
+						<th scope="col" class="text-start">Nombre</th>
+						<th scope="col" class="text-start">Monto</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%		
+						List<ReporteTransaccion> listaReporteTransaccion = (List<ReporteTransaccion>)request.getAttribute("listMovimiento");
+						
+						if (listaReporteTransaccion != null) {
+							
+							for (ReporteTransaccion item: listaReporteTransaccion) {
+								%>
+									<tr>
+										<td class="text-start"><%=item.getFecTrans()%></td>
+										<td class="text-start"><%=item.getNombre() %></td>
+										<td class="text-start">S/. <%=item.getMonto() %></td>
+									</tr>
+								<%
+							}
+						}
+					%>
+				</tbody>
+			</table>
+		</div>
     </div>
 
     <footer>
-        <small>&copy; 2025 Banco Seguro. Todos los derechos reservados.</small>
+        <small>&copy; 2025 Gestión de Cuentas. Todos los derechos reservados.</small>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const saldoInput = document.getElementById('txtSaldo');
-            const toggleButton = document.getElementById('toggleSaldoBtn');
-            const saldoReal = "S/. ${saldo}";
-            const saldoOculto = "******";
-            let isHidden = true;
-
-            toggleButton.addEventListener('click', () => {
-                saldoInput.value = isHidden ? saldoReal : saldoOculto;
-                toggleButton.innerHTML = isHidden ? "<i class='bx bx-hide'></i> Ocultar Saldo" : "<i class='bx bx-show'></i> Mostrar Saldo";
-                isHidden = !isHidden;
-            });
-        });
-    </script>
 </body>
 </html>

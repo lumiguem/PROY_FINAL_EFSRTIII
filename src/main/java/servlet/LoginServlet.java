@@ -1,11 +1,15 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.time.ZoneId;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DAOFactory;
 import entidades.Usuario;
@@ -47,12 +51,17 @@ public class LoginServlet extends HttpServlet {
 				if(usu != null) {
 					SessionProject sessionProject = new SessionProject();
 					sessionProject.saveSessionTimeOut(request, 300);
+					sessionProject.saveSessionInt(request,"idusur",usu.getIdUsuario());
 					sessionProject.saveSessionInt(request, Constantes.IDUSUARIO, usu.getIdUsuario());
 					sessionProject.saveSessionString(request, Constantes.NAME, usu.getNomUsuario());
 					sessionProject.saveSessionString(request, Constantes.LASTNAME, usu.getApeUsuario());
 					sessionProject.saveSessionString(request, Constantes.CELULAR, usu.getCelUsuario());
 					sessionProject.saveSessionString(request, Constantes.PASSWORD, usu.getPasUsuario());
 					sessionProject.saveSessionDouble(request, Constantes.SALDO, usu.getSaldo());
+					
+					HttpSession sessionProject1 = request.getSession();
+					sessionProject1.setAttribute("saldo", usu.getSaldo());
+					
 					response.sendRedirect("main.jsp");
 				}  else {
 					request.setAttribute("mensaje", "Usuario y/o Contraseña es incorrecta");
@@ -66,7 +75,10 @@ public class LoginServlet extends HttpServlet {
 											
 			}
 			
-			
+		Instant ahora = Instant.now();
+		
+		System.out.println(ahora);
+		
+		System.out.println(ZoneId.getAvailableZoneIds());
 	}
-
 }
