@@ -18,7 +18,7 @@ CREATE TABLE `yata_app`.`transacciones` (
   `idOrigen` INT NOT NULL,
   `monto` DOUBLE NOT NULL,
   `idDestino` INT NOT NULL,
-  `fecTrans` DATE NOT NULL,
+  `fecTrans` TIMESTAMP NOT NULL,
   PRIMARY KEY (`idTransaccion`),
   CONSTRAINT `fk_idOrigen`
     FOREIGN KEY (`idOrigen`) REFERENCES `usuarios`(`idUsuario`)
@@ -32,6 +32,9 @@ CREATE TABLE `yata_app`.`transacciones` (
     
 INSERT INTO `yata_app`.`usuarios` (`idUsuario`, `nomUsuario`, `apeUsuario`, `celUsuario`, `pasUsuario`, `saldo`) VALUES ('1111', 'Miguel', 'Moreno', '978376725', '123456', 1500);
 INSERT INTO `yata_app`.`usuarios` (`nomUsuario`, `apeUsuario`, `celUsuario`, `pasUsuario`, `saldo`) VALUES ('Alejandro ', 'Romero', '914613879', '654321', 500);
+INSERT INTO `yata_app`.`usuarios` (`nomUsuario`, `apeUsuario`, `celUsuario`, `pasUsuario`, `saldo`) VALUES ('Lucía', 'Fernández', '987654321', '234561', 2000);
+INSERT INTO `yata_app`.`usuarios` (`nomUsuario`, `apeUsuario`, `celUsuario`, `pasUsuario`, `saldo`) VALUES ('Carlos', 'Gómez', '923456789', '345612', 750);
+INSERT INTO `yata_app`.`usuarios` (`nomUsuario`, `apeUsuario`, `celUsuario`, `pasUsuario`, `saldo`) VALUES ('Valeria', 'Torres', '956789432', '456123', 1200);
 
 --Procedimientos 
 
@@ -48,10 +51,10 @@ delimiter ;
 call usp_validaLogin(978376725, 123456)
 
 delimiter //
-create procedure usp_registrarTransaccion(in ido int,in idd int,in monto double,in fechat Date)
+create procedure usp_registrarTransaccion(in ido int,in idd int,in monto double)
 begin
 	insert into transacciones (idOrigen,idDestino, monto, fecTrans) values
-    (ido, idd, monto, fechat);
+    (ido, idd, monto, utc_timestamp());
 end//
 delimiter ;
 
@@ -75,12 +78,12 @@ BEGIN
     SELECT 
         t.fecTrans,
         CASE 
-            WHEN t.idOrigen = usuarioID THEN u_dest.nomUsuario  -- Si el usuario envió dinero, mostramos el destinatario
-            ELSE u_origen.nomUsuario  -- Si el usuario recibió dinero, mostramos el remitente
+            WHEN t.idOrigen = usuarioID THEN u_dest.nomUsuario
+            ELSE u_origen.nomUsuario
         END AS nombreUsuario,
         CASE 
-            WHEN t.idOrigen = usuarioID THEN -t.monto  -- Si el usuario envió, monto positivo
-            ELSE t.monto  -- Si el usuario recibió, monto negativo
+            WHEN t.idOrigen = usuarioID THEN -t.monto
+            ELSE t.monto
         END AS saldo_movimiento
     FROM transacciones t
     JOIN usuarios u_origen ON t.idOrigen = u_origen.idUsuario
