@@ -16,4 +16,8 @@ public interface TransaccionDAO {
 	
 	public int eliminarTransaccion (int id);
 
+	void modificarUsuarioTran(int id, double montoTran);
+
+	public String obtenerNombreUsuario(int idDestino);
+
 }

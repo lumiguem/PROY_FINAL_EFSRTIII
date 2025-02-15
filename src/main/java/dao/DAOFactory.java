@@ -1,6 +1,7 @@
 package dao;
 
 import interfaces.CuentaDAO;
+import interfaces.ReporteTransaccionDAO;
 import interfaces.UsuarioDAO;
 
 public abstract class DAOFactory {
@@ -10,6 +11,7 @@ public abstract class DAOFactory {
 	
 	public abstract UsuarioDAO getUsuario();
 	public abstract CuentaDAO getCuenta();
+	public abstract ReporteTransaccionDAO getReporteTransaccion();
 	
 	
 	public static DAOFactory getDaoFactory(int tipo) {

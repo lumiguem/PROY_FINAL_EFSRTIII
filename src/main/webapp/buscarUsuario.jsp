@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transferencia</title>
+    <title>Buscar Destinatario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
@@ -34,18 +34,8 @@
             border-radius: 12px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 500px;
+            max-width: 400px;
             text-align: center;
-        }
-        .btn-primary {
-            background-color: #004d40;
-            border-color: #004d40;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        .btn-primary:hover {
-            background-color: #00332c;
-            transform: scale(1.05);
-            color: white !important;
         }
         .btn-info {
             background-color: #00796b;
@@ -74,24 +64,19 @@
             text-align: center;
             font-size: 1.2rem;
         }
-        h1 {
-            color: #004d40;
-        }
         label {
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
+        h2 {
+            color: #004d40;
+        }
     </style>
     <script>
-        function validateTransferForm() {
-            var nombreDestinatario = document.getElementsByName("nombreDestinatario")[0].value;
-            var monto = document.getElementsByName("monto")[0].value;
-            if (nombreDestinatario == "") {
-                alert("Nombre de destinatario está vacío");
-                return false;
-            }
-            if (monto == "") {
-                alert("El valor del monto está vacío");
+        function validateForm() {
+            var celular = document.forms["searchForm"]["celular"].value;
+            if (celular == "") {
+                alert("Número de celular del destinatario está vacío");
                 return false;
             }
             return true;
@@ -102,26 +87,17 @@
 
     <div class="container">
         <div class="card">
-            <form action="TransaccionServlet" method="POST" onsubmit="return validateTransferForm()">
-                <h1>Transferencia</h1>
-                <input class="form-control" type="hidden" name="idTransaccion" value="1">
-                <br>
-                <input class="form-control" type="hidden" name="idOrigen" value="${idusur}">
-                <br>
-                <a href="buscarUsuario.jsp" class="btn btn-info">Buscar Destinatario</a>
-                <br>
-                <label>Nombre del destinatario</label>
-                <input class="form-control" name="nombreDestinatario" type="text" value="${usuarioDestinatario}" readonly>
-                <br>
-                <label>Ingrese el monto</label><br>
-                <input class="form-control" type="number" name="monto" step="0.01" required>
-                <br>
-                <label>Valor actual en su cuenta</label><br>
-                <input class="form-control" type="text" value="S/. ${saldo}" disabled>
-                <br>
-                <button type="submit" class="btn btn-info w-100">Transferir</button>
-                <br>
-                <a href="main.jsp" class="btn btn-info w-100">Volver al menú anterior</a>
+            <h2>Buscar Destinatario</h2>
+            <form name="searchForm" action="UsuarioServlet" method="post" onsubmit="return validateForm()">
+                <div class="mb-3">	
+                    <input type="text" id="celular" name="celular" class="form-control" placeholder="Inserte número de celular">
+                </div>
+                <button type="submit" class="btn btn-info w-100 mb-3">Buscar</button>
+                <div class="mb-3">
+                    <label for="nombreDestinatario" class="form-label">Nombre del destinatario:</label>
+                    <input type="text" id="nombreDestinatario" class="form-control" placeholder="${usuarioDestinatario}" disabled>
+                </div>
+                <a href="transferencia.jsp" class="btn btn-info w-100">Confirmar destinatario</a>
             </form>
         </div>
     </div>
